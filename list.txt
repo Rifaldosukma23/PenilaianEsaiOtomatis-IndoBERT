@@ -1,0 +1,14 @@
+from lib.predict import calculate_score
+
+question = "Apa yang kalian ketahui tentang algoritma?"
+kunci_jawaban = "Urutan langkah langkah penyelesaian masalah yang disusun secara sistematis dan logis."
+jawaban_siswa_list = [
+    "Algoritma adalah Sistim kerja komputer yang memiliki brainware, hardware, dan software",
+    "Algoritma adalah langkah-langkah yang disusun secara tertulis dan berurutan untuk menyelesaikan satu masalah",
+    "Algoritma adalah urutan langkah langkah logis penyelesaian masalah yang disusun secara sistematis dan logis",
+    # Add more student answers here
+]
+
+for i, jawaban_siswa in enumerate(jawaban_siswa_list):
+    result = calculate_score(question, kunci_jawaban, jawaban_siswa)
+    print("Score for Answer", i+1, ":", result)
