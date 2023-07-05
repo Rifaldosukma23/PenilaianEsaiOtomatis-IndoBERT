@@ -1,0 +1,137 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Penilaiian Esai Otomatis</title>
+  <link rel="icon" href="https://img.icons8.com/?size=512&id=8gU0I1oOycSo&format=png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+</head>
+
+<body>
+  <div class="position-absolute top-50 start-50 translate-middle">
+    <!-- Judul -->
+    <h1 class="text-center">Penilaian Esai Otomatis!</h1>
+    <h5 class="text-center mb-5"><i>Dibuat oleh</i> : Rifaldo Sukma S.</h5>
+
+    <!-- Data File -->
+    <div class="card">
+      <div class="card-body">
+
+        <form id="yourForm" method="POST" onsubmit="event.preventDefault(); submitForm();">
+          <div class="mb-3">
+            <label for="InputPertanyaan" class="form-label">Pertanyaan</label>
+            <input type="text" rows="2" class="form-control" name="question" id="question" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="InputKunciJawaban" class="form-label">Kunci Jawaban</label>
+            <input type="text" rows="3" class="form-control" name="answer_key" id="answer_key" required>
+          </div>
+
+          <div id="jawabanSiswaContainer">
+            <!-- Existing and dynamically added "Jawaban Siswa" sections will go here -->
+          </div>
+
+          <div class="mb-3">
+            <button type="button" class="btn btn-outline-danger btn-sm float-end me-2" onclick="removeJawabanSiswa()">
+              <i class="bi bi-trash"></i>
+            </button>
+            <button type="button" class="btn btn-outline-success btn-sm float-end me-1" onclick="addJawabanSiswa()">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+
+          <button type="submit" id="submitButton" class="btn btn-primary mt-3" style="display: none;">Submit</button>
+        </form>
+
+        <div id="scoreContainer" style="display: none;">
+          <h3 class="text-center mt-4">Score: <span id="scoreValue"></span></h3>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      var jawabanSiswaCounter = 0;
+  
+      function addJawabanSiswa() {
+        jawabanSiswaCounter++;
+  
+        var jawabanSiswaSection = document.createElement("div");
+        jawabanSiswaSection.classList.add("mb-3");
+  
+        var label = document.createElement("label");
+        label.setAttribute("for", "InputJawabanSiswa");
+        label.classList.add("form-label");
+        label.textContent = "Jawaban Siswa " + jawabanSiswaCounter;
+  
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.classList.add("form-control");
+        input.setAttribute("rows", "3");
+        input.setAttribute("name", "answer_student_" + jawabanSiswaCounter);
+        input.required = true;
+  
+        var nilaiSiswa = document.createElement("div");
+        nilaiSiswa.classList.add("form-text");
+        nilaiSiswa.setAttribute("id", "nilaiSiswa_" + jawabanSiswaCounter);
+        nilaiSiswa.textContent = "Score: ";
+  
+        jawabanSiswaSection.appendChild(label);
+        jawabanSiswaSection.appendChild(input);
+        jawabanSiswaSection.appendChild(nilaiSiswa);
+  
+        var container = document.getElementById("jawabanSiswaContainer");
+        container.appendChild(jawabanSiswaSection);
+  
+        // Show the submit button
+        var submitButton = document.getElementById("submitButton");
+        submitButton.style.display = "block";
+      }
+  
+      function removeJawabanSiswa() {
+        var jawabanSiswaContainer = document.getElementById("jawabanSiswaContainer");
+  
+        if (jawabanSiswaCounter > 0) {
+          jawabanSiswaContainer.removeChild(jawabanSiswaContainer.lastChild);
+          jawabanSiswaCounter--;
+        }
+  
+        // Hide the submit button if no inputs are added
+        if (jawabanSiswaCounter === 0) {
+          var submitButton = document.getElementById("submitButton");
+          submitButton.style.display = "none";
+        }
+      }
+  
+      function submitForm() {
+        var form = $("#yourForm");
+        var scoreContainer = $("#scoreContainer");
+        var scoreValue = $("#scoreValue");
+  
+        $.ajax({
+          type: form.attr("method"),
+          url: form.attr("action"),
+          data: form.serialize(),
+          success: function(response) {
+            var score = 0;
+            for (var i = 1; i <= jawabanSiswaCounter; i++) {
+              var nilaiSiswa = $("#nilaiSiswa_" + i);
+              score += parseInt(nilaiSiswa.text().split(": ")[1]);
+            }
+  
+            scoreContainer.show();
+            scoreValue.text(score);
+          },
+        });
+      }
+    </script>
+
+  </body>
+</html>

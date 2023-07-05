@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Score Result</title>
+</head>
+<body>
+    <h1>Score Result</h1>
+    <p>Question: {{ question }}</p>
+    <p>Correct Answer: {{ kunci_jawaban }}</p>
+    {% for index, score in enumerate(scores) %}
+        <p>Student's Answer {{ index + 1 }}: {{ jawaban_siswa_list[index] }}</p>
+        <p>The calculated score is: {{ score }}</p>
+    {% endfor %}
+</body>
+</html>
