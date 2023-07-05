@@ -15,7 +15,7 @@ def score():
             result = calculate_score(question, kunci_jawaban, jawaban_siswa)
             results.append(result)
 
-        return render_template('test/result.html', scores=results, jawaban_siswa_list=jawaban_siswa_list, question=question, kunci_jawaban=kunci_jawaban, enumerate=enumerate)
+        return render_template('result.html', scores=results, jawaban_siswa_list=jawaban_siswa_list, question=question, kunci_jawaban=kunci_jawaban, enumerate=enumerate)
 
     return render_template('test/index.html')
 
