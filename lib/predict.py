@@ -37,6 +37,7 @@ def replace_abbreviations(text):
 def cleaning(text):
     if isinstance(text, str) and text.strip():
         text = re.sub(r'[^\w\s]', ' ', text)
+        text = re.sub(r'\d+', " ", text)
     else:
         text = ''
 
@@ -132,12 +133,12 @@ def calculate_score(question, kunci_jawaban, jawaban_siswa):
     if result < 1:
         result = 0
     elif 1 <= result < 1.5:
-        result = 1
+        result = 25
     elif 1.5 <= result < 2.5:
-        result = 2
+        result = 50
     elif 2.5 <= result < 3.5:
-        result = 3
+        result = 75
     else:
-        result = 4
+        result = 100
 
     return result

@@ -26,6 +26,21 @@ def index():
 
     return render_template('index.html')
 
+@app.route("/result", methods=["POST", "GET"])
+def result():
+    if request.method == 'POST':
+        question = request.form['question']
+        kunci_jawaban = request.form['kunci_jawaban']
+        jawaban_siswa_list = request.form.getlist('jawaban_siswa')
+
+        results = []
+        for jawaban_siswa in jawaban_siswa_list:
+            result = calculate_score(question, kunci_jawaban, jawaban_siswa)
+            results.append(result)
+
+        return render_template('result.html', scores=results, jawaban_siswa_list=jawaban_siswa_list, question=question, kunci_jawaban=kunci_jawaban, enumerate=enumerate)
+
+    return render_template('result.html')
 
 if __name__ == '__main__':
      app.run(host='localhost', port=2023, debug=True)
