@@ -48,52 +48,58 @@
     <style>
         body {
             background-image: url("/static/background.jpg");
+            background-repeat: no-repeat;
             background-size:cover
         }
     </style>
 </head>
 <body>
-    <div class="position-absolute top-50 start-50 translate-middle">
-        <!-- Judul -->
-        <h1 class="text-center">Penilaian Esai Otomatis!</h1>
-        <h5 class="text-center mb-5"><i>Dibuat oleh</i>: Rifaldo Sukma H.</h5>
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Judul -->
+                <h1 class="text-center" style="color: white;"><b>Penilaian Esai Otomatis!</b></h1>
+                <h5 class="text-center mb-5" style="color: white;"><i>Dibuat oleh</i>: Rifaldo Sukma H.</h5>
+            </div>
+            <div class="row" style="place-content: center;">
+                <!-- Data File -->
+                <div class="card" style="width: 600px; box-shadow: 0 0 10px rgba(19, 19, 19, 0.3);">
+                    <div class="card-body">
+                        <form method="POST" action="/result">
+                            <div class="mb-3">
+                                <label for="question" class="form-label">Pertanyaan</label>
+                                <div class="spinner-grow spinner-grow-sm text-secondary float-end me-2" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <input type="text" rows="2" class="form-control" name="question" id="question" required>
+                            </div>
 
-        <!-- Data File -->
-        <div class="card">
-            <div class="card-body">
-                <form method="POST" action="/result">
-                    <div class="mb-3">
-                        <label for="question" class="form-label">Pertanyaan</label>
-                        <div class="spinner-grow spinner-grow-sm text-secondary float-end me-2" role="status">
-                          <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <input type="text" rows="2" class="form-control" name="question" id="question" required>
+                            <div class="mb-3">
+                                <label for="kunci_jawaban" class="form-label">Kunci Jawaban</label>
+                                <input type="text" rows="3" class="form-control" name="kunci_jawaban" id="kunci_jawaban" required>
+                            </div>
+
+                            <div id="answer-fields">
+                            </div>
+
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-outline-danger btn-sm float-end me-2" id="remove-answer-btn" style="display: none;">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-success btn-sm float-end me-1" id="add-answer-btn">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mt-3" style="display: none;" id="submit-btn">Kirim</button>
+                            <button type="button" class="btn btn-primary mt-3"  disabled style="display: none;" id="loading-btn">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Loading...
+                            </button>                    
+
+                        </form>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="kunci_jawaban" class="form-label">Kunci Jawaban</label>
-                        <input type="text" rows="3" class="form-control" name="kunci_jawaban" id="kunci_jawaban" required>
-                    </div>
-
-                    <div id="answer-fields">
-                    </div>
-
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-outline-danger btn-sm float-end me-2" id="remove-answer-btn" style="display: none;">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-success btn-sm float-end me-1" id="add-answer-btn">
-                            <i class="bi bi-plus"></i>
-                        </button>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary mt-3" style="display: none;" id="submit-btn">Kirim</button>
-                    <button type="button" class="btn btn-primary mt-3"  disabled style="display: none;" id="loading-btn">
-                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      Loading...
-                    </button>                    
-
-                </form>
+                </div>
             </div>
         </div>
     </div>

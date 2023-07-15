@@ -10,43 +10,50 @@
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
     <style>
         body {
-            background-color: #f2f2f2; /* Set your desired background color here */
+            background-image: url("/static/background.jpg");
+            background-repeat: no-repeat;
+            background-size:cover
         }
     </style>
 </head>
 <body>
-    <div class="position-absolute top-50 start-50 translate-middle">
-        <!-- Judul -->
-        <h1 class="text-center">Hasil Prediksi Penilaian Esai Otomatis!</h1>
-        <h5 class="text-center mb-5"><i>Dibuat oleh</i>: Rifaldo Sukma H.</h5>
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Judul -->
+                <h1 class="col-12 text-center" style="color: white;"><b>Prediksi Penilaian Esai Otomatis!</b></h1>
+                <h5 class="col-12 text-center mb-5" style="color: white;"><i>Dibuat oleh</i>: Rifaldo Sukma H.</h5>
+            </div>
+            <div class="row" style="place-content: center;">
+                <!-- Data File -->
+                <div class="card" style="width: 600px; box-shadow: 0 0 10px rgba(19, 19, 19, 0.3);">
+                    <div class="card-body">
 
-        <!-- Data File -->
-        <div class="card">
-            <div class="card-body">
+                            <form class="form-floating mb-3">
+                                <textarea type="text" class="form-control is-valid" disabled>{{ question }}</textarea>
+                                <label for="question">Pertanyaan</label>
+                            </form>
 
-                    <form class="form-floating mb-3">
-                        <textarea type="text" class="form-control is-valid" disabled>{{ question }}</textarea>
-                        <label for="question">Pertanyaan</label>
-                    </form>
+                            <form class="form-floating mb-3">
+                                <textarea type="text" style="height: 80px" class="form-control is-valid" disabled>{{ kunci_jawaban }}</textarea>
+                                <label for="kunci_jawaban">Kunci Jawaban</label>
+                            </form>
+                
 
-                    <form class="form-floating mb-3">
-                        <textarea type="text" style="height: 80px" class="form-control is-valid" disabled>{{ kunci_jawaban }}</textarea>
-                        <label for="kunci_jawaban">Kunci Jawaban</label>
-                    </form>
-        
-
-                    {% for index, score in enumerate(scores) %}
-                    <div class="input-group mb-3">
-                        <span class="input-group-text text-warning"><b>{{ score }}</b></span>
-                            <div class="form-floating">
-                              <input type="text" class="form-control" value="{{ jawaban_siswa_list[index] }}" readonly>
-                              <label for="jawabanSiswa">Jawaban Siswa {{ index + 1 }}</label>
+                            {% for index, score in enumerate(scores) %}
+                            <div class="input-group mb-3">
+                                <span class="input-group-text text-warning"><b>{{ score }}</b></span>
+                                    <div class="form-floating">
+                                    <input type="text" class="form-control" value="{{ jawaban_siswa_list[index] }}" readonly>
+                                    <label for="jawabanSiswa">Jawaban Siswa {{ index + 1 }}</label>
+                                    </div>
                             </div>
-                    </div>
-                    {% endfor %}
-                    
-                <button type="button" class="btn btn-outline-success mt-3" onclick="goBack()">Kembali</button>
+                            {% endfor %}
+                            
+                        <button type="button" class="btn btn-outline-success mt-3" onclick="goBack()">Kembali</button>
 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
